@@ -1,0 +1,89 @@
+definitions:
+  models.Error:
+    properties:
+      error:
+        type: string
+    type: object
+  models.OriginalLinkRequest:
+    properties:
+      original_link:
+        type: string
+    type: object
+  models.OriginalLinkResponse:
+    properties:
+      original_link:
+        type: string
+    type: object
+  models.ShortCodeResponse:
+    properties:
+      short_code:
+        type: string
+      short_link:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /link/:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: OriginalLink
+        in: body
+        name: link
+        required: true
+        schema:
+          $ref: '#/definitions/models.OriginalLinkRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Ссылка создана
+          schema:
+            $ref: '#/definitions/models.ShortCodeResponse'
+        "400":
+          description: Неверный запрос
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Внутренняя ошибка сервера
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Создать короткую ссылку по оригинальной
+      tags:
+      - Link
+  /link/{code}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Содержание короткой ссылки
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Оригинальная ссылка
+          schema:
+            $ref: '#/definitions/models.OriginalLinkResponse'
+        "400":
+          description: Неверный запрос
+          schema:
+            $ref: '#/definitions/models.Error'
+        "404":
+          description: Ссылка не найдена
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Внутренняя ошибка сервера
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Возвращает оригинальную ссылку по короткой, используя адрес короткой
+        ссылки
+      tags:
+      - Link
+swagger: "2.0"
