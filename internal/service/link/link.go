@@ -1,15 +1,15 @@
 package link
 
 import (
-	"backend/internal/cache"
-	"backend/internal/cerr"
-	"backend/internal/generate"
-	"backend/internal/log"
-	"backend/internal/models"
-	"backend/internal/service"
-	"backend/internal/storage"
 	"context"
 	"errors"
+	"url_shortener/internal/cache"
+	"url_shortener/internal/cerr"
+	"url_shortener/internal/generate"
+	"url_shortener/internal/log"
+	"url_shortener/internal/models"
+	"url_shortener/internal/service"
+	"url_shortener/internal/storage"
 )
 
 type Service struct {

@@ -1,10 +1,10 @@
 package noop
 
 import (
-	"backend/internal/cache"
-	"backend/internal/cerr"
-	"backend/internal/models"
 	"context"
+	"url_shortener/internal/cache"
+	"url_shortener/internal/cerr"
+	"url_shortener/internal/models"
 )
 
 type Cache struct {

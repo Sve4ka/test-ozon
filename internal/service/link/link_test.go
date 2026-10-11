@@ -5,9 +5,9 @@ import (
 	"errors"
 	"testing"
 
-	"backend/internal/cerr"
-	"backend/internal/mocks"
-	"backend/internal/models"
+	"url_shortener/internal/cerr"
+	"url_shortener/internal/mocks"
+	"url_shortener/internal/models"
 
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"

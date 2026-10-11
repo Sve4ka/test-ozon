@@ -1,19 +1,19 @@
 package app
 
 import (
-	"backend/internal/cache"
-	"backend/internal/cache/noop"
-	"backend/internal/cache/redis"
-	"backend/internal/config"
-	"backend/internal/delivery/http"
-	"backend/internal/delivery/middleware"
-	"backend/internal/docs"
-	"backend/internal/generate"
-	"backend/internal/log"
-	"backend/internal/storage"
-	"backend/internal/storage/memory"
-	"backend/internal/storage/postgres"
 	"fmt"
+	"url_shortener/internal/cache"
+	"url_shortener/internal/cache/noop"
+	"url_shortener/internal/cache/redis"
+	"url_shortener/internal/config"
+	"url_shortener/internal/delivery/http"
+	"url_shortener/internal/delivery/middleware"
+	"url_shortener/internal/docs"
+	"url_shortener/internal/generate"
+	"url_shortener/internal/log"
+	"url_shortener/internal/storage"
+	"url_shortener/internal/storage/memory"
+	"url_shortener/internal/storage/postgres"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -25,15 +25,15 @@ func Start() {
 
 	log.Log.Info("Config Initialized")
 
-	var db storage.Storage
+	var store storage.Storage
 
 	switch cfg.StorageType {
 	case config.StorageMemory:
 		inMemory := memory.NewStorage()
-		db = memory.InitMemoryRepo(inMemory)
+		store = memory.InitMemoryRepo(inMemory)
 	case config.StoragePostgres:
 		pg := postgres.MustInitPg(cfg.PGConfig)
-		db = postgres.InitPostgresRepo(pg)
+		store = postgres.InitPostgresRepo(pg)
 		defer pg.Close()
 	default:
 		panic("Unsupported storage type")
@@ -67,7 +67,7 @@ func Start() {
 	docs.SwaggerInfo.BasePath = "/"
 	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	http.InitRouter(g, db, cacheData, generator, cfg.GenerateAttempts, cfg.ShortLinkAddress)
+	http.InitRouter(g, store, cacheData, generator, cfg.GenerateAttempts, cfg.ShortLinkAddress)
 
 	log.Log.Info("Start Server")
 

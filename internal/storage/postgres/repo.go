@@ -1,12 +1,13 @@
 package postgres
 
 import (
-	"backend/internal/cerr"
-	"backend/internal/models"
-	"backend/internal/storage"
 	"context"
 	"errors"
+	"url_shortener/internal/cerr"
+	"url_shortener/internal/models"
+	"url_shortener/internal/storage"
 
+	"github.com/jackc/pgerrcode"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 )
@@ -29,7 +30,7 @@ func (r *Repo) Create(ctx context.Context, link models.OriginalLink, code models
 		if !errors.As(err, &pgErr) {
 			return err
 		}
-		if pgErr.Code == "23505" { // unique_violation
+		if errors.As(err, &pgErr) && pgErr.Code == pgerrcode.UniqueViolation {
 			switch pgErr.ConstraintName {
 			case "links_original_link_key":
 				return cerr.ErrOriginalLinkAlreadyExists

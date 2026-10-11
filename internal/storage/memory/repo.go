@@ -1,43 +1,43 @@
 package memory
 
 import (
-	"backend/internal/cerr"
-	"backend/internal/models"
-	"backend/internal/storage"
 	"context"
+	"url_shortener/internal/cerr"
+	"url_shortener/internal/models"
+	"url_shortener/internal/storage"
 )
 
 type Repo struct {
-	db *Storage
+	storage *Storage
 }
 
-func InitMemoryRepo(db *Storage) storage.Storage {
-	return &Repo{db: db}
+func InitMemoryRepo(storage *Storage) storage.Storage {
+	return &Repo{storage: storage}
 }
 
 func (r *Repo) Create(ctx context.Context, link models.OriginalLink, code models.ShortCode) error {
-	r.db.mu.Lock()
-	defer r.db.mu.Unlock()
+	r.storage.mu.Lock()
+	defer r.storage.mu.Unlock()
 
-	if _, exists := r.db.byOriginal[link]; exists {
+	if _, exists := r.storage.byOriginal[link]; exists {
 		return cerr.ErrOriginalLinkAlreadyExists
 	}
 
-	if _, exists := r.db.byCode[code]; exists {
+	if _, exists := r.storage.byCode[code]; exists {
 		return cerr.ErrShortCodeAlreadyExists
 	}
 
-	r.db.byOriginal[link] = code
-	r.db.byCode[code] = link
+	r.storage.byOriginal[link] = code
+	r.storage.byCode[code] = link
 
 	return nil
 }
 
 func (r *Repo) GetByOriginalLink(ctx context.Context, link models.OriginalLink) (models.ShortCode, error) {
-	r.db.mu.RLock()
-	defer r.db.mu.RUnlock()
+	r.storage.mu.RLock()
+	defer r.storage.mu.RUnlock()
 
-	code, ok := r.db.byOriginal[link]
+	code, ok := r.storage.byOriginal[link]
 	if !ok {
 		return "", cerr.ErrNotFound
 	}
@@ -45,10 +45,10 @@ func (r *Repo) GetByOriginalLink(ctx context.Context, link models.OriginalLink) 
 }
 
 func (r *Repo) GetByShortCode(ctx context.Context, code models.ShortCode) (models.OriginalLink, error) {
-	r.db.mu.RLock()
-	defer r.db.mu.RUnlock()
+	r.storage.mu.RLock()
+	defer r.storage.mu.RUnlock()
 
-	link, ok := r.db.byCode[code]
+	link, ok := r.storage.byCode[code]
 	if !ok {
 		return "", cerr.ErrNotFound
 	}

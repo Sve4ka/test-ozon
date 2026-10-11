@@ -1,8 +1,8 @@
 package storage
 
 import (
-	"backend/internal/models"
 	"context"
+	"url_shortener/internal/models"
 )
 
 type Storage interface {

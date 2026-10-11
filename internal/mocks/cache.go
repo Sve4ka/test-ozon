@@ -3,8 +3,8 @@
 package mocks
 
 import (
-	models "backend/internal/models"
 	context "context"
+	models "url_shortener/internal/models"
 
 	mock "github.com/stretchr/testify/mock"
 )

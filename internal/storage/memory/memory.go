@@ -1,8 +1,8 @@
 package memory
 
 import (
-	"backend/internal/models"
 	"sync"
+	"url_shortener/internal/models"
 )
 
 type Storage struct {

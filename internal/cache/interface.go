@@ -1,8 +1,8 @@
 package cache
 
 import (
-	"backend/internal/models"
 	"context"
+	"url_shortener/internal/models"
 )
 
 type Cache interface {

@@ -1,14 +1,14 @@
 package handler
 
 import (
-	"backend/internal/cerr"
-	"backend/internal/generate"
-	"backend/internal/models"
-	"backend/internal/service"
 	"errors"
 	"net/http"
 	"net/url"
 	"strings"
+	"url_shortener/internal/cerr"
+	"url_shortener/internal/generate"
+	"url_shortener/internal/models"
+	"url_shortener/internal/service"
 
 	"github.com/gin-gonic/gin"
 )

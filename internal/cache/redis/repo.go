@@ -1,12 +1,12 @@
 package redis
 
 import (
-	"backend/internal/cache"
-	"backend/internal/cerr"
-	"backend/internal/models"
 	"context"
 	"errors"
 	"time"
+	"url_shortener/internal/cache"
+	"url_shortener/internal/cerr"
+	"url_shortener/internal/models"
 
 	"github.com/redis/go-redis/v9"
 )

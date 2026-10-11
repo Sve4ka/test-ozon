@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"backend/internal/cerr"
-	"backend/internal/models"
+	"url_shortener/internal/cerr"
+	"url_shortener/internal/models"
 
 	"github.com/stretchr/testify/require"
 )

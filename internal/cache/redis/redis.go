@@ -1,9 +1,9 @@
 package redis
 
 import (
-	"backend/internal/config"
 	"context"
 	"fmt"
+	"url_shortener/internal/config"
 
 	"github.com/redis/go-redis/extra/redisotel/v9"
 	"github.com/redis/go-redis/v9"

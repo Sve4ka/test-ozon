@@ -1,8 +1,8 @@
 package service
 
 import (
-	"backend/internal/models"
 	"context"
+	"url_shortener/internal/models"
 )
 
 type Link interface {

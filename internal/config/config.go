@@ -1,11 +1,11 @@
 package config
 
 import (
-	"backend/internal/log"
 	"errors"
 	"fmt"
 	"os"
 	"time"
+	"url_shortener/internal/log"
 
 	"github.com/spf13/viper"
 )
@@ -131,7 +131,7 @@ func InitConfig() *Config {
 			RedisPort:     viper.GetInt(RedisPort),
 			RedisPassword: viper.GetString(RedisPassword),
 		},
-		
+
 		StorageType: viper.GetString(storageType),
 		CacheType:   viper.GetString(cacheType),
 

@@ -1,17 +1,17 @@
 package http
 
 import (
-	"backend/internal/cache"
-	"backend/internal/delivery/http/handler"
-	"backend/internal/generate"
-	linkService "backend/internal/service/link"
-	"backend/internal/storage"
+	"url_shortener/internal/cache"
+	"url_shortener/internal/delivery/http/handler"
+	"url_shortener/internal/generate"
+	linkService "url_shortener/internal/service/link"
+	"url_shortener/internal/storage"
 
 	"github.com/gin-gonic/gin"
 )
 
-func initLink(r *gin.Engine, db storage.Storage, cache cache.Cache, generator generate.Generator, generateAttempt int, shortLinkAddress string) {
-	serviceLink := linkService.InitLinkService(db, cache, generator, generateAttempt)
+func initLink(r *gin.Engine, storage storage.Storage, cache cache.Cache, generator generate.Generator, generateAttempt int, shortLinkAddress string) {
+	serviceLink := linkService.InitLinkService(storage, cache, generator, generateAttempt)
 	handlerLink := handler.InitLinkHandler(serviceLink, shortLinkAddress)
 
 	group := r.Group("/link")
@@ -22,6 +22,6 @@ func initLink(r *gin.Engine, db storage.Storage, cache cache.Cache, generator ge
 	}
 }
 
-func InitRouter(r *gin.Engine, db storage.Storage, cache cache.Cache, generator generate.Generator, generateAttempt int, shortLinkAddress string) {
-	initLink(r, db, cache, generator, generateAttempt, shortLinkAddress)
+func InitRouter(r *gin.Engine, storage storage.Storage, cache cache.Cache, generator generate.Generator, generateAttempt int, shortLinkAddress string) {
+	initLink(r, storage, cache, generator, generateAttempt, shortLinkAddress)
 }

@@ -1,6 +1,6 @@
 package main
 
-import "backend/internal/app"
+import "url_shortener/internal/app"
 
 func main() {
 	app.Start()

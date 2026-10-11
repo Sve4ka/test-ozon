@@ -1,12 +1,12 @@
 package postgres
 
 import (
-	"backend/internal/config"
-	"backend/internal/log"
 	"context"
 	"database/sql"
 	"fmt"
 	"time"
+	"url_shortener/internal/config"
+	"url_shortener/internal/log"
 
 	"github.com/exaring/otelpgx"
 	"github.com/jackc/pgx/v5/pgxpool"
